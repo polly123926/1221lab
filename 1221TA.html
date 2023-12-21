@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <script>
+        function add(x, y) {
+            return x + y;
+        }
+
+        function subtract(x, y) {
+            return x - y;
+        }
+
+        function multiply(x, y) {
+            return x * y;
+        }
+
+        function divide(x, y) {
+            if (y === 0) {
+                throw new Error("Cannot divide by zero");
+            }
+            return x / y;
+        }
+
+        function getUserInput() {
+            let num1, num2, operation;
+
+            while (true) {
+                num1 = prompt("Enter the first number:");
+
+                if (isNaN(num1)) {
+                    alert("Please enter a valid number.");
+                } else {
+                    break;
+                }
+            }
+
+            while (true) {
+                num2 = prompt("Enter the second number:");
+
+                if (isNaN(num2)) {
+                    alert("Please enter a valid number.");
+                } else {
+                    break;
+                }
+            }
+
+            while (true) {
+                operation = prompt("Choose an operation (+, -, *, /):");
+
+                if (!['+', '-', '*', '/'].includes(operation)) {
+                    alert("Please enter a valid operation (+, -, *, /).");
+                } else {
+                    break;
+                }
+            }
+
+            return { num1, num2, operation };
+        }
+
+        function calculate() {
+            try {
+                const { num1, num2, operation } = getUserInput();
+
+                let result;
+
+                switch (operation) {
+                    case '+':
+                        result = add(parseFloat(num1), parseFloat(num2));
+                        break;
+                    case '-':
+                        result = subtract(parseFloat(num1), parseFloat(num2));
+                        break;
+                    case '*':
+                        result = multiply(parseFloat(num1), parseFloat(num2));
+                        break;
+                    case '/':
+                        result = divide(parseFloat(num1), parseFloat(num2));
+                        break;
+                    default:
+                        throw new Error("Invalid operation. Please choose +, -, *, or /.");
+                }
+
+                alert(`Result: ${result}`);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+
+        function runCalculator() {
+            let continueCalculating = true;
+
+            while (continueCalculating) {
+                calculate();
+
+                const userInput = prompt("Do you want to perform another calculation? (yes/no)").toLowerCase();
+                continueCalculating = userInput === 'yes';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+    <button onclick="runCalculator()">Run Calculator</button>
+</body>
+</html>
